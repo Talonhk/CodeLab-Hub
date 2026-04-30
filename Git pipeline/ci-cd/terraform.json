@@ -1,0 +1,67 @@
+{
+  "provider": {
+    "kubernetes": {
+      "config_path": "~/.kube/config"
+    }
+  },
+  "resource": {
+    "kubernetes_deployment_v1": {
+      "example": {
+        "metadata": {
+          "name": "example-deployment",
+          "labels": {
+            "app": "example-app"
+          }
+        },
+        "spec": {
+          "replicas": 2,
+          "selector": {
+            "match_labels": {
+              "app": "example-app"
+            }
+          },
+          "template": {
+            "metadata": {
+              "labels": {
+                "app": "example-app"
+              }
+            },
+            "spec": {
+              "containers": [
+                {
+                  "name": "example-container",
+                  "image": "nginx:latest",
+                  "ports": [
+                    {
+                      "containerPort": 80
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "kubernetes_service": {
+      "example": {
+        "metadata": {
+          "name": "example-service"
+        },
+        "spec": {
+          "selector": {
+            "app": "example-app"
+          },
+          "ports": [
+            {
+              "protocol": "TCP",
+              "port": 80,
+              "targetPort": 80
+            }
+          ],
+          "type": "ClusterIP"
+        }
+      }
+    }
+  }
+}

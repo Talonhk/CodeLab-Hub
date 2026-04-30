@@ -1,0 +1,17 @@
+{
+  "name": "Terraform and Ansible Workspace",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hashicorp.terraform",
+        "redhat.ansible"
+      ],
+      "settings": {}
+    }
+  },
+  "postCreateCommand": "terraform --version && ansible --version",
+  "remoteUser": "vscode"
+}
