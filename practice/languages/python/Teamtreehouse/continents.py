@@ -32,7 +32,7 @@ video_games = [
 
 def display_wishlist(display_name, wishes):
   print(display_name + ":")
-  suggested_gift = wishes(0)
+  suggested_gift = wishes[0]
   print("====>", suggested_gift, "<====")
   for wish in wishes:
     print("* " + wish)
