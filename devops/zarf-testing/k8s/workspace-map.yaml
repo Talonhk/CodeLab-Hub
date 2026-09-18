@@ -1,0 +1,44 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lab-workspace-map
+  namespace: tools
+  labels:
+    app: coding-lab
+immutable: false
+data:
+  python: "/workspace/languages/python"
+  javascript: "/workspace/languages/javascript"
+  go: "/workspace/languages/go"
+  php: "/workspace/languages/php"
+  java: "/workspace/languages/java"
+  cpp: "/workspace/languages/cpp"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workspace-launcher
+  namespace: tools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: workspace-launcher
+  template:
+    metadata:
+      labels:
+        app: workspace-launcher
+    spec:
+      containers:
+      - name: workspace-launcher
+        image: busybox:1.36
+        command: ["sh", "-c"]
+        args:
+        - |
+          echo 'Coding Lab workspace mapping service';
+          sleep 3600
+        env:
+        - name: LAB_REPO_ROOT
+          value: /workspace
+        - name: DB_HOST
+          value: mysql.database.svc.cluster.local

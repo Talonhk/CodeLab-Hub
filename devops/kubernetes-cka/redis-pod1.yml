@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-pod1
+  labels:
+    app: redis-app1
+  namespace: learning-cka
+spec:
+  containers:
+  - name: redis-container
+    image: redis-app1:latest
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"

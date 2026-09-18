@@ -1,0 +1,29 @@
+{
+  "name": "coding-lab-control-plane",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "remoteUser": "vscode",
+  "workspaceFolder": "/workspaces/Test_Codes/ZARF_testing",
+  "runArgs": [
+    "--init"
+  ],
+  "mounts": [
+    "source=${localEnv:USERPROFILE}\\.kube,target=/home/vscode/.kube,type=bind,consistency=cached"
+  ],
+  "postCreateCommand": "pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/ZARF_testing/safe-k8s.ps1 status",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "ms-vscode.powershell",
+        "redhat.vscode-yaml",
+        "vscjava.vscode-java-pack"
+      ]
+    }
+  }
+}

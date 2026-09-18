@@ -1,0 +1,329 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-test
+  namespace: apps
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  progressDeadlineSeconds: 600
+  selector:
+    matchLabels:
+      app: python-test
+  template:
+    metadata:
+      labels:
+        app: python-test
+    spec:
+      containers:
+      - name: python-test
+        image: python:3.12
+        command: [ "bash", "--noprofile", "--norc", "-lc" ]
+        args:
+        - |
+          export PS1="[python-test] \u@\h:\w\$ ";
+          echo "Python test container ready";
+          echo "DB_HOST=mysql.database.svc.cluster.local";
+          while true; do sleep 3600; done
+        readinessProbe:
+          exec:
+            command: [ "bash", "-lc", "test -n \"$DB_HOST\"" ]
+          initialDelaySeconds: 3
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        env:
+        - name: DB_HOST
+          value: mysql.database.svc.cluster.local
+        - name: DB_NAME
+          value: appdb
+        - name: DB_USER
+          value: appuser
+        - name: DB_PASS
+          value: apppass
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-test
+  namespace: apps
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  progressDeadlineSeconds: 600
+  selector:
+    matchLabels:
+      app: node-test
+  template:
+    metadata:
+      labels:
+        app: node-test
+    spec:
+      containers:
+      - name: node-test
+        image: node:20
+        command: [ "bash", "--noprofile", "--norc", "-lc" ]
+        args:
+        - |
+          export PS1="[node-test] \u@\h:\w\$ ";
+          echo "Node test container ready";
+          echo "DB_HOST=mysql.database.svc.cluster.local";
+          while true; do sleep 3600; done
+        readinessProbe:
+          exec:
+            command: [ "bash", "-lc", "test -n \"$DB_HOST\"" ]
+          initialDelaySeconds: 3
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        env:
+        - name: DB_HOST
+          value: mysql.database.svc.cluster.local
+        - name: DB_NAME
+          value: appdb
+        - name: DB_USER
+          value: appuser
+        - name: DB_PASS
+          value: apppass
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-test
+  namespace: apps
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  progressDeadlineSeconds: 600
+  selector:
+    matchLabels:
+      app: go-test
+  template:
+    metadata:
+      labels:
+        app: go-test
+    spec:
+      containers:
+      - name: go-test
+        image: golang:1.22
+        command: [ "bash", "--noprofile", "--norc", "-lc" ]
+        args:
+        - |
+          export PS1="[go-test] \u@\h:\w\$ ";
+          echo "Go test container ready";
+          echo "DB_HOST=mysql.database.svc.cluster.local";
+          while true; do sleep 3600; done
+        readinessProbe:
+          exec:
+            command: [ "bash", "-lc", "test -n \"$DB_HOST\"" ]
+          initialDelaySeconds: 3
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        env:
+        - name: DB_HOST
+          value: mysql.database.svc.cluster.local
+        - name: DB_NAME
+          value: appdb
+        - name: DB_USER
+          value: appuser
+        - name: DB_PASS
+          value: apppass
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-test
+  namespace: apps
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  progressDeadlineSeconds: 600
+  selector:
+    matchLabels:
+      app: php-test
+  template:
+    metadata:
+      labels:
+        app: php-test
+    spec:
+      containers:
+      - name: php-test
+        image: php:8.2-cli
+        command: [ "bash", "--noprofile", "--norc", "-lc" ]
+        args:
+        - |
+          export PS1="[php-test] \u@\h:\w\$ ";
+          echo "PHP test container ready";
+          echo "DB_HOST=mysql.database.svc.cluster.local";
+          while true; do sleep 3600; done
+        readinessProbe:
+          exec:
+            command: [ "bash", "-lc", "test -n \"$DB_HOST\"" ]
+          initialDelaySeconds: 3
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        env:
+        - name: DB_HOST
+          value: mysql.database.svc.cluster.local
+        - name: DB_NAME
+          value: appdb
+        - name: DB_USER
+          value: appuser
+        - name: DB_PASS
+          value: apppass
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-test
+  namespace: apps
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  progressDeadlineSeconds: 600
+  selector:
+    matchLabels:
+      app: java-test
+  template:
+    metadata:
+      labels:
+        app: java-test
+    spec:
+      containers:
+      - name: java-test
+        image: maven:3.9-eclipse-temurin-21
+        command: [ "bash", "--noprofile", "--norc", "-lc" ]
+        args:
+        - |
+          export PS1="[java-test] \u@\h:\w\$ ";
+          echo "Java test container ready";
+          echo "DB_HOST=mysql.database.svc.cluster.local";
+          while true; do sleep 3600; done
+        readinessProbe:
+          exec:
+            command: [ "bash", "-lc", "test -n \"$DB_HOST\"" ]
+          initialDelaySeconds: 3
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        env:
+        - name: DB_HOST
+          value: mysql.database.svc.cluster.local
+        - name: DB_NAME
+          value: appdb
+        - name: DB_USER
+          value: appuser
+        - name: DB_PASS
+          value: apppass
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cpp-test
+  namespace: apps
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  progressDeadlineSeconds: 600
+  selector:
+    matchLabels:
+      app: cpp-test
+  template:
+    metadata:
+      labels:
+        app: cpp-test
+    spec:
+      containers:
+      - name: cpp-test
+        image: gcc:13
+        command: [ "bash", "--noprofile", "--norc", "-lc" ]
+        args:
+        - |
+          export PS1="[cpp-test] \u@\h:\w\$ ";
+          echo "C++ test container ready";
+          echo "DB_HOST=mysql.database.svc.cluster.local";
+          while true; do sleep 3600; done
+        readinessProbe:
+          exec:
+            command: [ "bash", "-lc", "test -n \"$DB_HOST\"" ]
+          initialDelaySeconds: 3
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        env:
+        - name: DB_HOST
+          value: mysql.database.svc.cluster.local
+        - name: DB_NAME
+          value: appdb
+        - name: DB_USER
+          value: appuser
+        - name: DB_PASS
+          value: apppass
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi

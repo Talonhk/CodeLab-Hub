@@ -1,0 +1,29 @@
+stages: [lint, test, build]
+
+lint:
+  stage: lint
+  image: python:3.11-slim
+  script:
+    - pip install ruff
+    - ruff src
+
+test:
+  stage: test
+  image: python:3.11-slim
+  script:
+    - pip install -r requirements.txt
+    - pytest -q
+
+build-train:
+  stage: build
+  image: docker:27.0.3
+  services: [docker:27.0.3-dind]
+  script:
+    - docker build -f docker/Dockerfile.train -t mlops-train:latest .
+
+build-serve:
+  stage: build
+  image: docker:27.0.3
+  services: [docker:27.0.3-dind]
+  script:
+    - docker build -f docker/Dockerfile.serve -t mlops-serve:latest .

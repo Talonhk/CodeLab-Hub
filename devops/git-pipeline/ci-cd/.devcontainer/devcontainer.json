@@ -1,0 +1,14 @@
+{
+  "name": "Terraform Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.kube/config,target=/root/.kube/config,type=bind",
+    "source=${localWorkspaceFolder}/terraform-state,target=/workspace/terraform-state,type=bind"
+  ],
+  "extensions": [
+    "hashicorp.terraform",
+    "ms-kubernetes-tools.vscode-kubernetes-tools"
+  ]
+}

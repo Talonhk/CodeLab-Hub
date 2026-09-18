@@ -1,0 +1,55 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    # Install nginx package using the apt ansible module
+    - name: Install nginx package
+      apt:
+        name: nginx
+        state: present
+      become: true
+
+    # Copy the nginx config file from /projects/app.conf to destination /etc/nginx/sites-available/app.conf using the copy ansible module
+    - name: Copy nginx config file
+      copy:
+        src: /projects/app.conf
+        dest: /etc/nginx/sites-available/app.conf
+      become: true
+
+    # Extract the project files from /projects/app.tar.gz to /var/www/html using the unarchive ansible module
+    - name: Extract project files
+      unarchive:
+        src: /projects/app.tar.gz
+        dest: /var/www/html
+        remote_src: true
+      become: true
+
+    # Ensure nginx is running
+    - name: Ensure nginx is running
+      service:
+        name: nginx
+        state: started
+
+    # Reload nginx to apply new config
+    - name: Reload nginx to apply new config
+      service:
+        name: nginx
+        state: reloaded
+
+    # Wait for nginx to be available
+    - name: Wait for nginx to be available
+      wait_for:
+        host: 127.0.0.1
+        port: 80
+        delay: 2
+        timeout: 30
+
+    # Test connectivity with the web server and fetch the main page from http://localhost (you have both the curl and wget commands available) make sure html output is displayed in ansible logs using debug
+    - name: Test connectivity with the web server
+      shell: curl http://localhost
+      register: web_output
+      become: true
+
+    - name: Display web server output
+      debug:
+        msg: "{{ web_output.stdout }}"
