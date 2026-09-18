@@ -133,9 +133,6 @@ def process_telemetry(filename):
     - Parse and filter lines
     - Check for violations
     """
-    if ".." in filename or "/" in filename or "\\" in filename:
-        logging.error("Invalid filename: path traversal detected.")
-        sys.exit(1)
     try:
         with open(filename, 'r') as f:
             lines = f.readlines()

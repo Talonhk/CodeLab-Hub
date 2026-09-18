@@ -42,4 +42,4 @@ RUN wget -q https://packages.microsoft.com/config/ubuntu/24.04/packages-microsof
     && rm -rf /var/lib/apt/lists/*
 
 USER vscode
-WORKDIR /workspaces/Test_Codes/ZARF_testing
+WORKDIR /workspaces/Test_Codes/devops/zarf-testing

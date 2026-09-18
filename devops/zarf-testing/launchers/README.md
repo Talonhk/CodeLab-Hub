@@ -1,7 +1,6 @@
 # Coding Lab launchers
 
-Each launcher is a small script that points to the correct language container and repo folder.
-Each launcher also opens an interactive shell in the target pod with a prompt marker like `[python-test] user@host:/path$`.
+Each launcher points to the correct language container and repo folder, then opens an interactive shell in the target pod.
 
 ## Prerequisites
 
@@ -25,11 +24,9 @@ kubectl get pods -n apps
 - java -> java-test -> /workspace/languages/java
 - cpp -> cpp-test -> /workspace/languages/cpp
 
-Use the matching language container for each project folder to avoid mixing code and dependencies.
-
 ## Launch Commands
 
-From `i:\Test_Codes\ZARF_testing\launchers` run:
+From `i:\Test_Codes\devops\zarf-testing\launchers` run:
 
 ```powershell
 .\python.ps1
@@ -43,29 +40,29 @@ From `i:\Test_Codes\ZARF_testing\launchers` run:
 Single language entry script:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\ZARF_testing\open-language.ps1 python
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\ZARF_testing\open-language.ps1 java -Mode api
+powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\open-language.ps1 python
+powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\open-language.ps1 java -Mode api
 ```
 
 From Dev Container, use:
 
 ```powershell
-pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/ZARF_testing/open-language.ps1 python
-pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/ZARF_testing/open-language.ps1 java -Mode api
+pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/devops/zarf-testing/open-language.ps1 python
+pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/devops/zarf-testing/open-language.ps1 java -Mode api
 ```
 
-Kubernetes safe wrapper (recommended for cluster actions):
+Kubernetes safe wrapper:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\ZARF_testing\safe-k8s.ps1 validate
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\ZARF_testing\safe-k8s.ps1 apply
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\ZARF_testing\safe-k8s.ps1 status
+powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\safe-k8s.ps1 validate
+powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\safe-k8s.ps1 apply
+powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\safe-k8s.ps1 status
 ```
 
-Java API one-command quick start (launch API, start port-forward, open endpoint):
+Java API quick start:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\ZARF_testing\safe-k8s.ps1 java-api
+powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\safe-k8s.ps1 java-api
 ```
 
 Use this API endpoint directly:
@@ -84,19 +81,13 @@ Invoke-RestMethod -Method Get -Uri "http://127.0.0.1:8080/api/messages"
 Use a custom local port if needed:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\ZARF_testing\safe-k8s.ps1 java-api -LocalPort 18080
-```
-
-From Dev Container terminal, use the Linux workspace path:
-
-```bash
-pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/ZARF_testing/safe-k8s.ps1 java-api
+powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\safe-k8s.ps1 java-api -LocalPort 18080
 ```
 
 Install language aliases in your PowerShell profile:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\ZARF_testing\install-language-aliases.ps1
+powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\install-language-aliases.ps1
 ```
 
 Then open a new terminal and type the language directly:
@@ -120,27 +111,12 @@ Java one-command modes:
 From Dev Container path:
 
 ```powershell
-pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/ZARF_testing/launchers/java.ps1 -Mode list
-pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/ZARF_testing/launchers/java.ps1 -Mode add -Message "hello"
+pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/devops/zarf-testing/launchers/java.ps1 -Mode list
+pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/devops/zarf-testing/launchers/java.ps1 -Mode add -Message "hello"
 ```
 
 - `-Mode api` starts the Spring Boot REST API in the `java-test` pod.
 - `-Mode list|add|delete` runs CLI CRUD commands against `demo_messages`.
-
-What each launcher does:
-
-- Changes host directory to the matching repo folder under `i:\Test_Codes\languages\<language>`
-- Runs `kubectl exec -it` into the matching deployment in namespace `apps`
-- Sets a language-specific prompt marker and opens an interactive Bash shell
-
-## Expected Prompt Markers
-
-- Python: `[python-test] user@host:/path$`
-- JavaScript: `[node-test] user@host:/path$`
-- Go: `[go-test] user@host:/path$`
-- PHP: `[php-test] user@host:/path$`
-- Java: `[java-test] user@host:/path$`
-- C++: `[cpp-test] user@host:/path$`
 
 ## Exit Back To Host
 
@@ -150,14 +126,12 @@ Inside a container shell, run:
 exit
 ```
 
-This returns you to your local PowerShell session.
-
-## Apply K8s Manifests (`apply-k8s.ps1`)
+## Apply K8s Manifests
 
 When you make Kubernetes manifest changes, use the top-level helper:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\ZARF_testing\apply-k8s.ps1
+powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\apply-k8s.ps1
 ```
 
 Optional flags:
@@ -178,31 +152,31 @@ kubectl get pods -n apps
 - If deployment changes were made recently, validate manifests before apply:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\ZARF_testing\validate-k8s.ps1
+powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\validate-k8s.ps1
 ```
 
 - To validate and apply all manifests in one step:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\ZARF_testing\apply-k8s.ps1
+powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\apply-k8s.ps1
 ```
 
 - Prefer wrapper form for stable execution:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\ZARF_testing\safe-k8s.ps1 apply
+powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\safe-k8s.ps1 apply
 ```
 
 - Full Kubernetes helper script overview is documented in the top-level lab README:
 
-`i:\Test_Codes\ZARF_testing\README.md`
+`i:\Test_Codes\devops\zarf-testing\README.md`
 
 - If the cluster is unhealthy, restore the latest known-good state:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\ZARF_testing\restore-lab.ps1
+powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\restore-lab.ps1
 ```
 
 ## Current Status
 
-All six launcher paths were validated with smoke tests (runtime check + MySQL TCP connectivity) and are working.
+All six launcher paths were validated with smoke tests and are working.

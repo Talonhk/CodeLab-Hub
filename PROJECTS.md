@@ -36,12 +36,12 @@ Multi-language learning exercises organized by programming language:
 
 | Language | Status | Key Contents |
 |----------|--------|--------------|
-| **C++** | Active | Beginner exercises, scratch files separated |
-| **Go** | Active | Introductory examples |
-| **Java** | Active | Spring Boot REST API + CLI demo (real project) |
-| **JavaScript** | Active | LeetCode-style challenges |
+| **C++** | Validated | Beginner exercises, scratch files separated; g++ compiles successfully |
+| **Go** | Validated | Introductory examples; `go run` verified |
+| **Java** | Ready, untested | Spring Boot REST API + CLI demo (needs JDK/Maven) |
+| **JavaScript** | Ready, untested | LeetCode-style challenges (needs Node.js) |
 | **PHP** | Active | Ready for new exercises |
-| **Python** | Active | Teamtreehouse + paging-mission-control challenge |
+| **Python** | Validated | Teamtreehouse + paging-mission-control challenge; continents.py fixed |
 
 **Quick Start:**
 - Browse any language folder for exercises and projects
@@ -118,7 +118,7 @@ Older or transitional work kept for reference. Review periodically and decide wh
 ### "I want to practice coding"
 → Go to `practice/languages/` and pick a language  
 → Each language folder has a README with current exercises  
-→ Python and Java have the most complete examples
+→ Python, Go, and C++ are currently the most validated environments
 
 ### "I want to explore infrastructure"
 → Browse `devops/` sections  
@@ -141,11 +141,12 @@ Older or transitional work kept for reference. Review periodically and decide wh
 ### By Section Priority
 
 1. **Python Practice** (High value)
-   - Test and validate all Teamtreehouse exercises
+   - Run the remaining interactive Teamtreehouse exercises
    - Document any failures or environment setup needs
    - Create a runbook for running the paging-mission-control challenge
 
-2. **Java Project** (Complete & testable)
+2. **Java Project** (Blocked by missing tools)
+   - Install JDK and Maven
    - Verify it builds and runs locally
    - Test REST API endpoints
    - Document build, test, and run commands
@@ -164,6 +165,11 @@ Older or transitional work kept for reference. Review periodically and decide wh
    - Document the full pipeline from commit to deployment
    - Add GitHub Actions or GitLab CI example
    - Create a test harness
+
+6. **JavaScript Exercises** (Blocked by missing tools)
+   - Install Node.js
+   - Add a test runner for the challenge files
+   - Verify the exercises are executable
 
 ---
 
