@@ -1,3 +1,19 @@
-C++/leetcode_1.cpp
-C++/leetcode_2.cpp
-C++/leetcode_3.cpp
+# Editor / local environment
+.vscode/
+.devcontainer/
+
+# Terraform and infra generated artifacts
+**/.terraform/
+**/.terraform.lock.hcl
+**/*.tfstate
+**/*.tfstate.*
+**/*.tfplan
+**/tfplan
+
+# Compiled binaries and local build artifacts
+**/*.exe
+**/*.pdb
+**/*.dll
+**/*.obj
+**/*.o
+**/*.out
