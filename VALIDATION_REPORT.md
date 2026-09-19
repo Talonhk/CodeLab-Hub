@@ -96,7 +96,7 @@ Validation pass completed across the main workspace areas. Core language environ
 
 **Notes:**
 - Local system Python 3.13 cannot install the pinned MLOps stack cleanly
-- `pytest` is referenced in CI but not declared in `requirements.txt`
+- The CI test job now installs `pytest` separately, so the pipeline can run the project tests without changing runtime requirements
 - The project is intended to be validated through the containerized path
 
 ## Camera App
@@ -127,4 +127,4 @@ Validation pass completed across the main workspace areas. Core language environ
 2. Install Node.js if JavaScript exercise validation is required.
 3. Run additional C++ and Python input-driven exercises.
 4. Validate Kubernetes manifests against a local cluster.
-5. Review the MLOps CI test dependency mismatch if you want CI parity with local runs.
+5. Expand the MLOps smoke checks if you want full API coverage in CI.
