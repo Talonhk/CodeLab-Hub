@@ -1,5 +1,9 @@
+#!/usr/bin/env python3
+
 import argparse
 import os
+import random
+
 import joblib
 import mlflow
 import numpy as np
@@ -7,7 +11,7 @@ from sklearn.datasets import load_iris
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
-import random
+
 
 def parse_args():
     p = argparse.ArgumentParser()

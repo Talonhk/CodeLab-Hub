@@ -1,7 +1,11 @@
+#!/usr/bin/env python3
+
 import argparse
+import os
+
 import joblib
 import numpy as np
-import os
+
 
 def parse_args():
     p = argparse.ArgumentParser()

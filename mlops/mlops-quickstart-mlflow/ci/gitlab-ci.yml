@@ -5,7 +5,7 @@ lint:
   image: python:3.11-slim
   script:
   - pip install ruff
-  - ruff src
+  - ruff check src
 
 test:
   stage: test

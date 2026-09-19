@@ -1,8 +1,11 @@
+#!/usr/bin/env python3
+
+import os
+
+import joblib
+import numpy as np
 from fastapi import FastAPI
 from pydantic import BaseModel
-import joblib, os, numpy as np
-
-MODEL_PATH = os.getenv("MODEL_PATH", "models/iris_rf.pkl")
 
 class Features(BaseModel):
     sepal_length: float
@@ -12,15 +15,20 @@ class Features(BaseModel):
 
 app = FastAPI()
 
+
+def get_model_path() -> str:
+    return os.getenv("MODEL_PATH", "models/iris_rf.pkl")
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
 
 @app.post("/predict")
 def predict(feat: Features):
-    if not os.path.exists(MODEL_PATH):
-        return {"error": f"model not found at {MODEL_PATH}. Train first."}
-    model = joblib.load(MODEL_PATH)
+    model_path = get_model_path()
+    if not os.path.exists(model_path):
+        return {"error": f"model not found at {model_path}. Train first."}
+    model = joblib.load(model_path)
     X = np.array([[feat.sepal_length, feat.sepal_width, feat.petal_length, feat.petal_width]])
     pred = int(model.predict(X)[0])
     return {"prediction": pred}

@@ -93,6 +93,7 @@ Validation pass completed across the main workspace areas. Core language environ
 - Docker build for `docker/Dockerfile.train` succeeds on Python 3.11
 - Training container runs successfully and writes `models/iris_rf.pkl`
 - Inference against the trained model returns a prediction
+- FastAPI smoke coverage passes for `GET /health`, `POST /predict`, and the missing-model path
 
 **Notes:**
 - Local system Python 3.13 cannot install the pinned MLOps stack cleanly
@@ -127,4 +128,4 @@ Validation pass completed across the main workspace areas. Core language environ
 2. Install Node.js if JavaScript exercise validation is required.
 3. Run additional C++ and Python input-driven exercises.
 4. Validate Kubernetes manifests against a local cluster.
-5. Expand the MLOps smoke checks if you want full API coverage in CI.
+5. Extend the MLOps API tests if you want broader request/response coverage.
