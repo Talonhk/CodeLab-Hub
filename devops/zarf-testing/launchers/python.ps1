@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$workspaceRoot = Split-Path -Parent (Split-Path -Parent $scriptRoot)
-$repoRoot = Join-Path (Join-Path $workspaceRoot 'languages') 'python'
+$workspaceRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $scriptRoot))
+$repoRoot = Join-Path (Join-Path $workspaceRoot 'practice\languages') 'python'
 Write-Host "Opening Python workspace: $repoRoot"
 Write-Host "Target container: python-test"
 Write-Host "Database: mysql.database.svc.cluster.local:3306"

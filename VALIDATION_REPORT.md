@@ -87,10 +87,17 @@ Validation pass completed across the main workspace areas. Core language environ
 
 ## MLOps / MLflow
 
-**Status:** Structure present, not tested
+**Status:** Functionally validated with containerized runtime
 
-**Current state:**
-- Training, inference, Docker, and test files are present.
+**Validated:**
+- Docker build for `docker/Dockerfile.train` succeeds on Python 3.11
+- Training container runs successfully and writes `models/iris_rf.pkl`
+- Inference against the trained model returns a prediction
+
+**Notes:**
+- Local system Python 3.13 cannot install the pinned MLOps stack cleanly
+- `pytest` is referenced in CI but not declared in `requirements.txt`
+- The project is intended to be validated through the containerized path
 
 ## Camera App
 
@@ -111,6 +118,7 @@ Validation pass completed across the main workspace areas. Core language environ
 | C++ validation | Working | Medium |
 | Java build setup | Missing tools | High |
 | JavaScript validation | Missing tools | High |
+| MLOps validation | Working via container | Medium |
 | Infrastructure code | Untested | Medium |
 
 ## Next Steps by Priority
@@ -119,4 +127,4 @@ Validation pass completed across the main workspace areas. Core language environ
 2. Install Node.js if JavaScript exercise validation is required.
 3. Run additional C++ and Python input-driven exercises.
 4. Validate Kubernetes manifests against a local cluster.
-5. Test the MLOps workflow end to end.
+5. Review the MLOps CI test dependency mismatch if you want CI parity with local runs.

@@ -8,7 +8,8 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$launcherDir = Join-Path $scriptRoot 'launchers'
+$workspaceRoot = Split-Path -Parent (Split-Path -Parent $scriptRoot)
+$launcherDir = Join-Path $workspaceRoot 'devops\zarf-testing\launchers'
 
 if (-not (Test-Path $launcherDir)) {
     throw "Launcher directory not found: $launcherDir"

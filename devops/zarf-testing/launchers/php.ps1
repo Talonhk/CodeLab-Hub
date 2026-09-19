@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$workspaceRoot = Split-Path -Parent (Split-Path -Parent $scriptRoot)
-$repoRoot = Join-Path (Join-Path $workspaceRoot 'languages') 'php'
+$workspaceRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $scriptRoot))
+$repoRoot = Join-Path (Join-Path $workspaceRoot 'practice\languages') 'php'
 Write-Host "Opening PHP workspace: $repoRoot"
 Write-Host "Target container: php-test"
 Write-Host "Database: mysql.database.svc.cluster.local:3306"

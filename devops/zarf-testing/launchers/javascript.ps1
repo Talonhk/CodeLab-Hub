@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$workspaceRoot = Split-Path -Parent (Split-Path -Parent $scriptRoot)
-$repoRoot = Join-Path (Join-Path $workspaceRoot 'languages') 'javascript'
+$workspaceRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $scriptRoot))
+$repoRoot = Join-Path (Join-Path $workspaceRoot 'practice\languages') 'javascript'
 Write-Host "Opening JavaScript workspace: $repoRoot"
 Write-Host "Target container: node-test"
 Write-Host "Database: mysql.database.svc.cluster.local:3306"

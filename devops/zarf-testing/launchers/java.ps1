@@ -7,8 +7,8 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$workspaceRoot = Split-Path -Parent (Split-Path -Parent $scriptRoot)
-$repoRoot = Join-Path (Join-Path $workspaceRoot 'languages') 'java'
+$workspaceRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $scriptRoot))
+$repoRoot = Join-Path (Join-Path $workspaceRoot 'practice\languages') 'java'
 Write-Host "Opening Java workspace: $repoRoot"
 Write-Host "Target container: java-test"
 Write-Host "Database: mysql.database.svc.cluster.local:3306"
