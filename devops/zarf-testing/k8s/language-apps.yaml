@@ -40,11 +40,20 @@ spec:
         - name: DB_HOST
           value: mysql.database.svc.cluster.local
         - name: DB_NAME
-          value: appdb
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-database
         - name: DB_USER
-          value: appuser
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-user
         - name: DB_PASS
-          value: apppass
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-password
         resources:
           requests:
             cpu: 100m
@@ -95,11 +104,20 @@ spec:
         - name: DB_HOST
           value: mysql.database.svc.cluster.local
         - name: DB_NAME
-          value: appdb
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-database
         - name: DB_USER
-          value: appuser
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-user
         - name: DB_PASS
-          value: apppass
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-password
         resources:
           requests:
             cpu: 100m
@@ -150,11 +168,20 @@ spec:
         - name: DB_HOST
           value: mysql.database.svc.cluster.local
         - name: DB_NAME
-          value: appdb
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-database
         - name: DB_USER
-          value: appuser
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-user
         - name: DB_PASS
-          value: apppass
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-password
         resources:
           requests:
             cpu: 100m
@@ -205,11 +232,20 @@ spec:
         - name: DB_HOST
           value: mysql.database.svc.cluster.local
         - name: DB_NAME
-          value: appdb
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-database
         - name: DB_USER
-          value: appuser
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-user
         - name: DB_PASS
-          value: apppass
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-password
         resources:
           requests:
             cpu: 100m
@@ -260,11 +296,20 @@ spec:
         - name: DB_HOST
           value: mysql.database.svc.cluster.local
         - name: DB_NAME
-          value: appdb
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-database
         - name: DB_USER
-          value: appuser
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-user
         - name: DB_PASS
-          value: apppass
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-password
         resources:
           requests:
             cpu: 100m
@@ -315,11 +360,20 @@ spec:
         - name: DB_HOST
           value: mysql.database.svc.cluster.local
         - name: DB_NAME
-          value: appdb
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-database
         - name: DB_USER
-          value: appuser
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-user
         - name: DB_PASS
-          value: apppass
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: app-password
         resources:
           requests:
             cpu: 100m

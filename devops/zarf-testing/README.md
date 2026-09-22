@@ -38,6 +38,51 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/CodeLab-Hub/devops/zar
 
 - MySQL service: mysql.database.svc.cluster.local:3306
 
+## MySQL credentials and local vault
+
+MySQL credentials are stored in Kubernetes Secret `mysql-credentials` and should not be hardcoded in manifests.
+
+Namespace note: Kubernetes secrets are namespace-scoped. The MySQL StatefulSet in `database` and language deployments in `apps` both need a `mysql-credentials` secret in their own namespace.
+
+For Windows local development, credentials are also stored in Windows Credential Manager:
+
+- `CodeLabHub/mysql-root`
+- `CodeLabHub/mysql-app`
+
+Read credentials in PowerShell:
+
+```powershell
+Import-Module CredentialManager
+$root = Get-StoredCredential -Target 'CodeLabHub/mysql-root'
+$app = Get-StoredCredential -Target 'CodeLabHub/mysql-app'
+$rootUser = $root.UserName
+$rootPass = $root.GetNetworkCredential().Password
+$appUser = $app.UserName
+$appPass = $app.GetNetworkCredential().Password
+```
+
+Sync Kubernetes secret from local vault values:
+
+```powershell
+Import-Module CredentialManager
+$root = Get-StoredCredential -Target 'CodeLabHub/mysql-root'
+$app = Get-StoredCredential -Target 'CodeLabHub/mysql-app'
+
+kubectl -n database create secret generic mysql-credentials \
+  --from-literal=root-password="$($root.GetNetworkCredential().Password)" \
+  --from-literal=app-database='appdb' \
+  --from-literal=app-user="$($app.UserName)" \
+  --from-literal=app-password="$($app.GetNetworkCredential().Password)" \
+  --dry-run=client -o yaml | kubectl apply -f -
+
+kubectl -n apps create secret generic mysql-credentials \
+  --from-literal=root-password="$($root.GetNetworkCredential().Password)" \
+  --from-literal=app-database='appdb' \
+  --from-literal=app-user="$($app.UserName)" \
+  --from-literal=app-password="$($app.GetNetworkCredential().Password)" \
+  --dry-run=client -o yaml | kubectl apply -f -
+```
+
 ## Language containers
 
 - python-test -> python
@@ -46,6 +91,19 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/CodeLab-Hub/devops/zar
 - php-test -> PHP
 - java-test -> Java
 - cpp-test -> C++
+
+These deployments read `DB_NAME`, `DB_USER`, and `DB_PASS` from `apps/mysql-credentials` using `secretKeyRef`.
+
+Quick connectivity verification for all language pods:
+
+```powershell
+$deployments = 'python-test','node-test','go-test','php-test','java-test','cpp-test'
+foreach ($d in $deployments) {
+  kubectl -n apps rollout status deploy/$d --timeout=180s
+  kubectl -n apps exec deploy/$d -- bash -lc "echo > /dev/tcp/mysql.database.svc.cluster.local/3306"
+  if ($LASTEXITCODE -eq 0) { "$d => OK" } else { "$d => FAIL" }
+}
+```
 
 ## Launchers
 
