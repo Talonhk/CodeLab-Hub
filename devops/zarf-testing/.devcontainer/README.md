@@ -1,6 +1,11 @@
 # Dev Container Setup
 
 This Dev Container provides a stable control-plane environment for Coding Lab operations while the Kubernetes cluster continues to run on the host.
+## Work in progress
+
+This lab is actively being extended to run more of the Kubernetes development workflow inside the Dev Container rather than relying entirely on host-managed tooling.
+
+The current setup uses the Dev Container as the primary control-plane workspace while the local Kubernetes cluster runs through Docker/k3d on the host. Ongoing work is focused on improving containerized cluster management, portability, and repeatability while keeping the environment easy to troubleshoot and validate.
 
 ## Included tools
 
