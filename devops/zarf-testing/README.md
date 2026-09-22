@@ -24,14 +24,14 @@ Dev Container config files:
 After opening this repo in the Dev Container, run:
 
 ```powershell
-pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/devops/zarf-testing/safe-k8s.ps1 status
+pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/CodeLab-Hub/devops/zarf-testing/safe-k8s.ps1 status
 ```
 
 Then validate/apply as needed:
 
 ```powershell
-pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/devops/zarf-testing/safe-k8s.ps1 validate
-pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/devops/zarf-testing/safe-k8s.ps1 apply
+pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/CodeLab-Hub/devops/zarf-testing/safe-k8s.ps1 validate
+pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/CodeLab-Hub/devops/zarf-testing/safe-k8s.ps1 apply
 ```
 
 ## Shared services
@@ -56,7 +56,7 @@ Launcher scripts and full usage instructions are documented in:
 Quick start from PowerShell:
 
 ```powershell
-Set-Location i:\Test_Codes\devops\zarf-testing\launchers
+Set-Location i:\CodeLab-Hub\devops\zarf-testing\launchers
 .\python.ps1
 .\javascript.ps1
 .\go.ps1
@@ -68,14 +68,14 @@ Set-Location i:\Test_Codes\devops\zarf-testing\launchers
 Single entry command:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\open-language.ps1 python
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\open-language.ps1 java -Mode list
+powershell -ExecutionPolicy Bypass -File i:\CodeLab-Hub\devops\zarf-testing\open-language.ps1 python
+powershell -ExecutionPolicy Bypass -File i:\CodeLab-Hub\devops\zarf-testing\open-language.ps1 java -Mode list
 ```
 
 Optional profile aliases:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\install-language-aliases.ps1
+powershell -ExecutionPolicy Bypass -File i:\CodeLab-Hub\devops\zarf-testing\install-language-aliases.ps1
 ```
 
 After opening a new PowerShell terminal, you can run:
@@ -94,13 +94,13 @@ cpp
 Before applying changes, run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\validate-k8s.ps1
+powershell -ExecutionPolicy Bypass -File i:\CodeLab-Hub\devops\zarf-testing\validate-k8s.ps1
 ```
 
 Safe wrapper command:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\safe-k8s.ps1 validate
+powershell -ExecutionPolicy Bypass -File i:\CodeLab-Hub\devops\zarf-testing\safe-k8s.ps1 validate
 ```
 
 ## Apply Manifests
@@ -108,13 +108,13 @@ powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\safe-
 To validate and then apply all lab manifests in a safe order, run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\apply-k8s.ps1
+powershell -ExecutionPolicy Bypass -File i:\CodeLab-Hub\devops\zarf-testing\apply-k8s.ps1
 ```
 
 Safe wrapper command:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\safe-k8s.ps1 apply
+powershell -ExecutionPolicy Bypass -File i:\CodeLab-Hub\devops\zarf-testing\safe-k8s.ps1 apply
 ```
 
 Optional flags:
@@ -134,7 +134,7 @@ Optional flags:
 ## Java API quick start
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\safe-k8s.ps1 java-api
+powershell -ExecutionPolicy Bypass -File i:\CodeLab-Hub\devops\zarf-testing\safe-k8s.ps1 java-api
 ```
 
 Use this API endpoint directly:
@@ -154,5 +154,6 @@ powershell -ExecutionPolicy Bypass -File .\restore-lab.ps1
 Or via wrapper:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File i:\Test_Codes\devops\zarf-testing\safe-k8s.ps1 restore
+powershell -ExecutionPolicy Bypass -File i:\CodeLab-Hub\devops\zarf-testing\safe-k8s.ps1 restore
 ```
+

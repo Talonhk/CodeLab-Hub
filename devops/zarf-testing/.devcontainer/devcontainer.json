@@ -5,14 +5,14 @@
     "context": ".."
   },
   "remoteUser": "vscode",
-  "workspaceFolder": "/workspaces/Test_Codes/devops/zarf-testing",
+  "workspaceFolder": "/workspaces/CodeLab-Hub/devops/zarf-testing",
   "runArgs": [
     "--init"
   ],
   "mounts": [
     "source=${localEnv:USERPROFILE}\\.kube,target=/home/vscode/.kube,type=bind,consistency=cached"
   ],
-  "postCreateCommand": "pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/devops/zarf-testing/safe-k8s.ps1 status",
+  "postCreateCommand": "pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/CodeLab-Hub/devops/zarf-testing/safe-k8s.ps1 status",
   "customizations": {
     "vscode": {
       "settings": {
@@ -27,3 +27,4 @@
     }
   }
 }
+

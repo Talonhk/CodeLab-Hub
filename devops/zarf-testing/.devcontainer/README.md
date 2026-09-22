@@ -23,19 +23,20 @@ This Dev Container provides a stable control-plane environment for Coding Lab op
 ## Verify cluster access from container
 
 ```bash
-pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/devops/zarf-testing/safe-k8s.ps1 status
+pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/CodeLab-Hub/devops/zarf-testing/safe-k8s.ps1 status
 ```
 
 ## Recommended daily flow
 
 ```bash
-pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/devops/zarf-testing/safe-k8s.ps1 validate
-pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/devops/zarf-testing/safe-k8s.ps1 apply
+pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/CodeLab-Hub/devops/zarf-testing/safe-k8s.ps1 validate
+pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/CodeLab-Hub/devops/zarf-testing/safe-k8s.ps1 apply
 ```
 
 ## Java quick run examples
 
 ```bash
-pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/devops/zarf-testing/launchers/java.ps1 -Mode add -Message "hello from devcontainer"
-pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/Test_Codes/devops/zarf-testing/launchers/java.ps1 -Mode list
+pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/CodeLab-Hub/devops/zarf-testing/launchers/java.ps1 -Mode add -Message "hello from devcontainer"
+pwsh -NoProfile -ExecutionPolicy Bypass -File /workspaces/CodeLab-Hub/devops/zarf-testing/launchers/java.ps1 -Mode list
 ```
+
