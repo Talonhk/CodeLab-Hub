@@ -16,3 +16,17 @@ This Java project is a small Spring Boot exercise focused on building a simple m
 ## Notes
 
 This is a real project and should stay structured as a standalone Java exercise instead of being treated as scratch material.
+
+## Start workspace and services
+
+```powershell
+.\start.ps1
+```
+
+Java launcher modes are also supported:
+
+```powershell
+.\start.ps1 -Mode api
+.\start.ps1 -Mode list
+.\start.ps1 -Mode add -Message "hello"
+```

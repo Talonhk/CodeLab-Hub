@@ -2,9 +2,14 @@ $ErrorActionPreference = 'Stop'
 
 $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $entryScript = Join-Path $scriptRoot 'open-language.ps1'
+$repoRoot = Split-Path -Parent (Split-Path -Parent $scriptRoot)
+$doSomeScript = Join-Path $repoRoot 'practice\languages\do-some.ps1'
 
 if (-not (Test-Path $entryScript)) {
     throw "Entry script not found: $entryScript"
+}
+if (-not (Test-Path $doSomeScript)) {
+    throw "Do-some script not found: $doSomeScript"
 }
 
 if (-not (Test-Path $PROFILE)) {
@@ -23,12 +28,16 @@ $psExe = if (Get-Command pwsh -ErrorAction SilentlyContinue) { 'pwsh' } else { '
 $aliasBlock = @"
 $markerStart
 `$codingLabEntry = '$entryScript'
+`$codingLabDoSome = '$doSomeScript'
 function python { & $psExe -ExecutionPolicy Bypass -File `$codingLabEntry python @args }
 function javascript { & $psExe -ExecutionPolicy Bypass -File `$codingLabEntry javascript @args }
 function go { & $psExe -ExecutionPolicy Bypass -File `$codingLabEntry go @args }
 function php { & $psExe -ExecutionPolicy Bypass -File `$codingLabEntry php @args }
 function java { & $psExe -ExecutionPolicy Bypass -File `$codingLabEntry java @args }
 function cpp { & $psExe -ExecutionPolicy Bypass -File `$codingLabEntry cpp @args }
+function dosome { & $psExe -ExecutionPolicy Bypass -File `$codingLabDoSome @args }
+Set-Alias do-work dosome
+Set-Alias letsdo dosome
 $markerEnd
 "@
 
@@ -45,4 +54,7 @@ if ($current -match [regex]::Escape($markerStart)) {
 }
 
 Write-Host "Language aliases installed in: $PROFILE"
-Write-Host "Open a new PowerShell terminal, then type: python | javascript | go | php | java | cpp"
+Write-Host "Open a new PowerShell terminal, then type:"
+Write-Host "python | javascript | go | php | java | cpp"
+Write-Host "dosome <language>   (example: dosome java)"
+Write-Host "do-work <language>  (example: do-work python)"

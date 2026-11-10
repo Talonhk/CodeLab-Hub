@@ -14,6 +14,20 @@ My focus is not simply getting something to run, but understanding how it works,
 - `practice/` - Language practice and coding exercises
 - `archives/` - Legacy and reference material
 
+## Helm chart locations
+
+- `mlops/mlops-quickstart-mlflow/infra/helm/mlops-serve`
+- `devops/git-pipeline/ci-cd/helm/example-app`
+- `devops/zarf-testing/helm/coding-lab`
+
+Quick verification:
+
+```powershell
+helm lint .\mlops\mlops-quickstart-mlflow\infra\helm\mlops-serve
+helm lint .\devops\git-pipeline\ci-cd\helm\example-app
+helm lint .\devops\zarf-testing\helm\coding-lab
+```
+
 ## Featured projects
 
 ### Kubernetes Engineering Lab

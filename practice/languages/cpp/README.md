@@ -35,3 +35,11 @@ This section is intentionally a learning bucket, not a production project. Sever
 ## Suggested next step
 
 Keep the folder as a practice lab, but clean up the file names and split multi-example files into single-purpose programs as follow-up work.
+
+## Start workspace and services
+
+```powershell
+.\start.ps1
+```
+
+This ensures Kubernetes coding-lab services are running, then opens the C++ container workspace.

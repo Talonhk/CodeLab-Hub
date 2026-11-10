@@ -28,3 +28,13 @@ CI/CD pipeline experiments and infrastructure-as-code examples for automating de
 ## Notes
 
 These are experimental setups for learning CI/CD patterns and should be adapted for your specific use case.
+
+## Kubernetes with Helm
+
+Example app chart location: `ci-cd/helm/example-app`
+
+```bash
+helm upgrade --install example-app ./ci-cd/helm/example-app
+kubectl get deploy java-deployment
+kubectl get svc example-service
+```

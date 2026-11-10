@@ -72,6 +72,7 @@ Infrastructure code, cluster configuration, and automation:
 #### git-pipeline/
 CI/CD pipeline experiments with Kubernetes and Terraform
 - Includes: Java app example, K8s manifests, pipeline scripts
+- Helm chart: `ci-cd/helm/example-app`
 - Next: Document full pipeline flow, add GitHub Actions or GitLab CI
 
 #### kubernetes-cka/
@@ -89,6 +90,7 @@ Terraform Infrastructure-as-Code workspace
 Local Kubernetes lab environment setup
 - Scripts for k3s cluster management
 - Launchers for different programming language environments
+- Helm chart: `helm/coding-lab` (namespaces, MySQL, workspace map, and language test deployments)
 - Next: Document the lab setup and tear-down process
 
 ---
@@ -101,7 +103,20 @@ End-to-end ML workflow examples:
 
 - **mlops-quickstart-mlflow/** – MLflow-based training and serving
   - Includes: Docker Compose, training/inference code, test suite
+  - Helm chart: `infra/helm/mlops-serve`
   - Next: Run locally, validate training and serving flow, document steps
+
+---
+
+## ⎈ Helm Charts for Kubernetes Work
+
+Use these charts for repeatable cluster deployments while working across different language projects:
+
+- `mlops/mlops-quickstart-mlflow/infra/helm/mlops-serve`
+- `devops/git-pipeline/ci-cd/helm/example-app`
+- `devops/zarf-testing/helm/coding-lab`
+
+The `coding-lab` chart is the multi-language Kubernetes workspace layer (Python, JavaScript/Node, Go, PHP, Java, C++) used during coding and learning workflows.
 
 ---
 
@@ -199,6 +214,14 @@ cd devops/zarf-testing
 # Use launchers/python.ps1, launchers/go.ps1, etc.
 ```
 
+### Deploy Helm-based Workloads
+```bash
+helm upgrade --install mlops-serve ./mlops/mlops-quickstart-mlflow/infra/helm/mlops-serve
+helm upgrade --install example-app ./devops/git-pipeline/ci-cd/helm/example-app
+helm upgrade --install coding-lab ./devops/zarf-testing/helm/coding-lab
+kubectl get deploy,statefulset,svc -A
+```
+
 ### Explore Kubernetes
 ```bash
 cd devops/kubernetes-cka
@@ -234,5 +257,5 @@ kubectl apply -f filename.yaml
 
 ---
 
-**Last Updated:** 2026-09-18  
+**Last Updated:** 2026-11-10  
 **Status:** Organized and documented. Ready for active use and validation.

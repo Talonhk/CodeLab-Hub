@@ -1,0 +1,80 @@
+{{- if .Values.mysql.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.mysql.pvcName }}
+  namespace: {{ .Values.mysql.namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.mysql.storage }}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.mysql.statefulSetName }}
+  namespace: {{ .Values.mysql.namespace }}
+spec:
+  serviceName: {{ .Values.mysql.serviceName }}
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.mysql.statefulSetName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.mysql.statefulSetName }}
+    spec:
+      containers:
+        - name: {{ .Values.mysql.statefulSetName }}
+          image: {{ .Values.mysql.image }}
+          imagePullPolicy: {{ .Values.mysql.imagePullPolicy }}
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.mysqlCredentialsSecretName }}
+                  key: {{ .Values.secrets.rootPasswordKey }}
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.mysqlCredentialsSecretName }}
+                  key: {{ .Values.secrets.appDatabaseKey }}
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.mysqlCredentialsSecretName }}
+                  key: {{ .Values.secrets.appUserKey }}
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.mysqlCredentialsSecretName }}
+                  key: {{ .Values.secrets.appPasswordKey }}
+          ports:
+            - containerPort: {{ .Values.mysql.port }}
+          resources:
+            {{- toYaml .Values.mysql.resources | nindent 12 }}
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: {{ .Values.mysql.pvcName }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.mysql.serviceName }}
+  namespace: {{ .Values.mysql.namespace }}
+spec:
+  selector:
+    app: {{ .Values.mysql.statefulSetName }}
+  ports:
+    - name: mysql
+      port: {{ .Values.mysql.port }}
+      targetPort: {{ .Values.mysql.port }}
+  type: ClusterIP
+{{- end }}

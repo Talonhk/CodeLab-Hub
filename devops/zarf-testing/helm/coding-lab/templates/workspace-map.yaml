@@ -1,0 +1,45 @@
+{{- if .Values.workspaceMap.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.workspaceMap.configMapName }}
+  namespace: {{ .Values.workspaceMap.namespace }}
+  labels:
+    app: coding-lab
+immutable: false
+data:
+{{- range $key, $value := .Values.workspaceMap.data }}
+  {{ $key }}: {{ $value | quote }}
+{{- end }}
+---
+{{- if .Values.workspaceMap.launcher.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.workspaceMap.launcher.name }}
+  namespace: {{ .Values.workspaceMap.namespace }}
+spec:
+  replicas: {{ .Values.workspaceMap.launcher.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.workspaceMap.launcher.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.workspaceMap.launcher.name }}
+    spec:
+      containers:
+        - name: {{ .Values.workspaceMap.launcher.name }}
+          image: {{ .Values.workspaceMap.launcher.image }}
+          command: ["sh", "-c"]
+          args:
+            - |
+              echo 'Coding Lab workspace mapping service';
+              sleep 3600
+          env:
+            - name: LAB_REPO_ROOT
+              value: {{ .Values.workspaceMap.launcher.repoRoot | quote }}
+            - name: DB_HOST
+              value: {{ .Values.workspaceMap.launcher.dbHost | quote }}
+{{- end }}
+{{- end }}

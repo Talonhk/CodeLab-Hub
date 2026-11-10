@@ -35,5 +35,11 @@ kubectl apply -f infra/k8s/deployment.yaml
 kubectl apply -f infra/k8s/service.yaml
 ```
 
+## Kubernetes with Helm
+```bash
+helm upgrade --install mlops-serve ./infra/helm/mlops-serve
+kubectl get deploy,svc -l app=mlops-serve
+```
+
 ## CI (GitLab)
 See `ci/gitlab-ci.yml` for a simple pipeline: lint → test → build images.

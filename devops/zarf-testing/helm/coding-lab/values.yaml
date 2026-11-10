@@ -1,0 +1,86 @@
+createNamespaces: true
+namespaces:
+  - database
+  - apps
+  - tools
+
+secrets:
+  mysqlCredentialsSecretName: mysql-credentials
+  rootPasswordKey: root-password
+  appDatabaseKey: app-database
+  appUserKey: app-user
+  appPasswordKey: app-password
+
+workspaceMap:
+  enabled: true
+  namespace: tools
+  configMapName: lab-workspace-map
+  data:
+    python: /workspace/languages/python
+    javascript: /workspace/languages/javascript
+    go: /workspace/languages/go
+    php: /workspace/languages/php
+    java: /workspace/languages/java
+    cpp: /workspace/languages/cpp
+  launcher:
+    enabled: true
+    name: workspace-launcher
+    replicas: 1
+    image: busybox:1.36
+    repoRoot: /workspace
+    dbHost: mysql.database.svc.cluster.local
+
+mysql:
+  enabled: true
+  namespace: database
+  pvcName: mysql-data
+  storage: 10Gi
+  statefulSetName: mysql
+  serviceName: mysql
+  image: mysql:8.0
+  imagePullPolicy: IfNotPresent
+  port: 3306
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+
+languageApps:
+  enabled: true
+  namespace: apps
+  dbHost: mysql.database.svc.cluster.local
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  deployments:
+    - name: python-test
+      image: python:3.12
+      label: python-test
+      displayName: Python
+    - name: node-test
+      image: node:20
+      label: node-test
+      displayName: Node
+    - name: go-test
+      image: golang:1.22
+      label: go-test
+      displayName: Go
+    - name: php-test
+      image: php:8.2-cli
+      label: php-test
+      displayName: PHP
+    - name: java-test
+      image: maven:3.9-eclipse-temurin-21
+      label: java-test
+      displayName: Java
+    - name: cpp-test
+      image: gcc:13
+      label: cpp-test
+      displayName: C++

@@ -16,3 +16,11 @@ This is still a practice area, so the goal is clarity and readable exercise stru
 ## Suggested next step
 
 Review each project in order and rename or group files so they are easier to follow.
+
+## Start workspace and services
+
+```powershell
+.\start.ps1
+```
+
+This ensures Kubernetes coding-lab services are running, then opens the Python container workspace.

@@ -1,0 +1,24 @@
+replicaCount: 2
+
+deploymentName: mlops-serve
+serviceName: mlops-serve
+appLabel: mlops-serve
+
+image:
+  repository: mlops-serve
+  tag: latest
+  pullPolicy: IfNotPresent
+
+container:
+  name: mlops-serve
+  port: 8000
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+env:
+  modelPath: /app/models/iris_rf.pkl
+
+resources: {}

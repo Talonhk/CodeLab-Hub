@@ -147,6 +147,13 @@ java
 cpp
 ```
 
+Natural workflow aliases are also available:
+
+```powershell
+dosome java
+do-work python
+```
+
 ## Validate Manifests
 
 Before applying changes, run:
@@ -189,6 +196,20 @@ Optional flags:
 - `open-language.ps1` - route to the correct launcher script
 - `install-language-aliases.ps1` - install PowerShell aliases for the language names
 
+## Apply with Helm
+
+You can deploy the same workload set using Helm:
+
+```powershell
+helm upgrade --install coding-lab .\helm\coding-lab
+kubectl get ns
+kubectl -n database get statefulset,svc,pvc
+kubectl -n apps get deploy
+kubectl -n tools get configmap,deploy
+```
+
+Keep creating `mysql-credentials` in both `database` and `apps` namespaces before rollout.
+
 ## Java API quick start
 
 ```powershell
@@ -214,4 +235,3 @@ Or via wrapper:
 ```powershell
 powershell -ExecutionPolicy Bypass -File i:\CodeLab-Hub\devops\zarf-testing\safe-k8s.ps1 restore
 ```
-
